@@ -9,7 +9,7 @@ create TABLE client (
 	id_personne	integer,
 	courriel varchar(50) NOT NULL UNIQUE,
 	salt varchar(32) NOT NULL,
-	hash varchar(128) NOT NULL,
+	password_hasher varchar(128) NOT NULL,
 	FOREIGN KEY(id_personne) REFERENCES personne(id_personne),
 	PRIMARY KEY(id_personne)
 );
@@ -68,7 +68,7 @@ create table employe (
     date_fin_emploi varchar(10),
     code_utilisateur varchar(25) unique not null,
     salt varchar(32) NOT NULL,
-	hash varchar(128) NOT NULL,
+	password_hasher varchar(128) NOT NULL,
 	type_acces varchar(1) NOT NULL check (type_acces in ('R','W')),
 	FOREIGN KEY(id_personne) REFERENCES personne(id_personne),
 	PRIMARY KEY(id_personne)
