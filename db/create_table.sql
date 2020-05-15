@@ -17,10 +17,10 @@ create TABLE client (
 create TABLE carte_credit (
     id_carte integer PRIMARY KEY AUTOINCREMENT,
     id_personne integer,
-    numero_carte number(16, 0) unique not null,
+    numero_carte varchar(16) unique not null check (length(numero_carte) = 16),
     mois_expiration integer check (mois_expiration between 1 and 12),
     annee_expiration integer check (annee_expiration between 20 and 23),
-    code_cvn number(3, 0) not null,
+    code_cvn varchar(3) not null check (length(code_cvn) = 3),
     FOREIGN KEY(id_personne) REFERENCES client(id_personne)
 );
 
