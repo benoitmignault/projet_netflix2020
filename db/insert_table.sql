@@ -32,15 +32,15 @@ insert into acteur (id_acteur, id_film, id_personne) values (7,3,6);
 insert into acteur (id_acteur, id_film, id_personne) values (8,5,6);
 insert into acteur (id_acteur, id_film, id_personne) values (9,1,6);
 
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (1,'Gandalf','1999-11-01', '2003-01-07', 1000455);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (2,'Jack','1995-11-01', '2001-01-07', 4874746);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (3,'Cloud','1991-11-01', '2020-04-01', 34567);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (4,'Ronald','1967-11-01', '1969-01-07', 139675);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (5,'Bilbon','1999-12-01', '2002-01-07', 999879);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (6,'Bella','1989-11-01', '1992-01-07', 234974);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (7,'Reno','1996-03-14', '1998-02-09', 2089573);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (8,'Barrett','1991-11-01', '2001-01-07', 2347555);
-insert into acteurs_film (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (9,'Gimli','2000-02-01', '2003-01-07', 686767);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (1,'Gandalf','1999-11-01', '2003-01-07', 1000455);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (2,'Jack','1995-11-01', '2001-01-07', 4874746);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (3,'Cloud','1991-11-01', '2020-04-01', 34567);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (4,'Ronald','1967-11-01', '1969-01-07', 139675);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (5,'Bilbon','1999-12-01', '2002-01-07', 999879);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (6,'Bella','1989-11-01', '1992-01-07', 234974);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (7,'Reno','1996-03-14', '1998-02-09', 2089573);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (8,'Barrett','1991-11-01', '2001-01-07', 2347555);
+insert into description_acteur (id_acteur, nom_personnage, date_embauche, date_fin_embauche, cachet) values (9,'Gimli','2000-02-01', '2003-01-07', 686767);
 
 insert into categorie (nom, description) values ('Science Fiction', 'Des chose qui n''arrivera pas dans un avenir proche');
 insert into categorie (nom, description) values ('Film d''action', 'Un film rempli d''action avec des scènes de toutes sortes');
