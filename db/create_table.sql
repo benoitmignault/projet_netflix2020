@@ -26,7 +26,7 @@ create TABLE carte_credit (
 
 create TABLE film (
     id_film integer PRIMARY KEY AUTOINCREMENT,
-    nom varchar(50) NOT NULL,
+    nom varchar(50) NOT NULL UNIQUE,
     duree_minute integer default 0 check (duree_minute >= 0),
     description varchar(255) NOT NULL
 );
@@ -40,7 +40,7 @@ create TABLE acteur (
     unique(id_film, id_personne)
 );
 
-create TABLE acteurs_film (
+create TABLE description_acteur (
     id_acteur integer PRIMARY KEY,
     nom_personnage varchar(50) not null,
     date_embauche varchar(10) not null,
