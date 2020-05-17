@@ -13,8 +13,6 @@ def creation_personne(nom, prenom, sexe):
     connection = ouverture_database()
     une_personne = Personne(None, nom, prenom, sexe)
     une_personne = connection.insertion_personne(une_personne)
-    
     connection.disconnect()
     
     return une_personne
-    

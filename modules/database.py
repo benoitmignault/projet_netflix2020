@@ -20,7 +20,7 @@ class Database:
         connection = self.get_connection()
         connection.execute("insert into personne(nom, prenom, sexe) "
                            "values(?, ?, ?)",
-                           (une_personne.nom, une_personne.person,
+                           (une_personne.nom, une_personne.prenom,
                             une_personne.sexe))
         connection.commit()
         
