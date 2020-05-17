@@ -1,6 +1,6 @@
 from modules.fonction import *
 
-une_personne = creation_personne("Thibault", "Anita", "F")
+une_personne = creation_personne("Thibault", "Anita", "M")
 
 print(une_personne.prenom)
 print(une_personne.nom)

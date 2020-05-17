@@ -25,7 +25,7 @@ class Database:
         connection.commit()
         
         cursor = connection.cursor()
-        cursor.execute("select max(id_personne) from personne")
+        cursor.execute("select last_insert_rowid()")
         result = cursor.fetchall()
         une_personne.id = result[0][0]
         return une_personne
