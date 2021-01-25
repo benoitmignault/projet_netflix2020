@@ -16,3 +16,6 @@ def creation_personne(nom, prenom, sexe):
     connection.disconnect()
     
     return une_personne
+
+
+
