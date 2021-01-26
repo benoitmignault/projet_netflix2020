@@ -1,7 +1,13 @@
 from .database import Database
 from .mes_classes import *
-import tkinter as tk
 import PySimpleGUI as sg
+import re
+import hashlib
+import uuid
+
+PATTERN_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*()?&])" \
+                   "[A-Za-z\\d@()$!%*?&]{8,20}$"
+
 
 def ouverture_database():
     connection = Database()
@@ -19,55 +25,84 @@ def creation_personne(nom, prenom, sexe):
     return une_personne
 
 
-def creation_interface_base_tkinter():
-    def clicked():
-        win_creat_compte = tk.Tk()
-        win_creat_compte.geometry('250x150')
-        win_creat_compte.title("Création de compte Netflix")
-        lbl_username = tk.Label(win_creat_compte, text="Nom d'utilisateur :")
-        lbl_username.grid(column=0, row=0)
-        txt_username = tk.Entry(win_creat_compte, width=25)
-        txt_username.grid(column=0, row=1)
-        txt_username.focus()
-        lbl_password = tk.Label(win_creat_compte, text="Mot de passe :")
-        lbl_password.grid(column=0, row=3)
-        txt_password = tk.Entry(win_creat_compte, width=25)
-        txt_password.grid(column=0, row=4)
-        btn_creat = tk.Button(win_creat_compte, text="Création Compte")
-        btn_creat.grid(column=0, row=6)
-        win_home.destroy()  # On vient fermer la fenêtre de présentation
-        win_creat_compte.mainloop()  # oouvre la page de création de compte
+def interface_page_login():
+    sg.theme('Dark')  # Add a touch of color
+    # All the stuff inside your window.
+    layout = [[sg.Text('Veuiller saisir vos informations !')],
+              [sg.Text()],
+              [sg.Text('Code Employer :')], [sg.InputText(key='username')],
+              [sg.Text('Password :')], [sg.InputText(key='password')],
+              [sg.Button('Se Connecter...'), sg.Button('Quitter...')]]
 
-    win_home = tk.Tk()
-    win_home.geometry('500x100')
-    win_home.title("Bienvenue au futur Netflix")
+    # Create the Window
+    fenetre_login = sg.Window('Gestion Portail Netflix', layout)
+    liste_champs = initial_champs_connexion()
+    liste_validation = initial_champ_connexion_validation()
+    # Event Loop to process "events" and get the "values" of the inputs
+    while True:
+        event, values = fenetre_login.read()
+        if event == sg.WIN_CLOSED or event == 'Quitter...':  # if user closes window or clicks cancel
+            break
+        else:
+            liste_champs = remplissage_champ_connexion(values, liste_champs)
 
-    titre1 = tk.Label(win_home, text="Vous avez deux choix d'action. Créer un compte ou se connecter !")
-    titre1.grid(column=0, row=0)
+        print(liste_champs)
 
-    btn_signUp = tk.Button(win_home, text="Création Compte", fg="darkblue", command=clicked)
-    btn_signUp.grid(column=0, row=1)
-
-    btn_signIn = tk.Button(win_home, text="Se Connecter", fg="darkblue")
-    btn_signIn.grid(column=0, row=2)
-
-    # fg -> la couleur du texte
-    # bg -> la couleur en arrière plan
-
-    win_home.mainloop()  # Permet d'afficher la page
+    fenetre_login.close()
 
 
-def creation_interface_base_pysimpleGUI():
-    layout = [[sg.Text('My one-shot window.')],
-                     [sg.InputText(key='-IN-')],
-                     [sg.Submit(), sg.Cancel()]]
+def initial_champs_connexion():
+    liste_champs = {"username": "", "password": "", "salt": "", "hash": "",
+                    "password_hasher": ""}
 
-    window = sg.Window('Window Title', layout)
-
-    event, values = window.read()
-    window.close()
-
-    text_input = values['-IN-']
-    sg.popup('You entered', text_input)
+    return liste_champs
 
 
+def initial_champ_connexion_validation():
+    liste_validation = {"situation_erreur": False,
+                        "champ_username_vide": False,
+                        "champ_password_vide": False,
+                        "champ_username_inv": False,
+                        "champ_password_inv": False,
+                        "champ_username_non_trouve": False,
+                        "champ_password_non_trouve": False,
+                        "longueur_username_inv": False,
+                        "longueur_password_inv": False}
+
+    return liste_validation
+
+
+def remplissage_champ_connexion(values, liste_champs):
+    liste_champs['username'] = values['username']
+    liste_champs['password'] = values['password']
+
+    return liste_champs
+
+
+def validation_courriel_connexion(liste_champs, liste_validation):
+    if liste_champs['username'] == "":
+        liste_validation['champ_username_vide'] = True
+    else:
+        # Créer un patterne pour avoir des chiffres et des lettres seulement
+
+        if len(liste_champs['username']) > 50:
+            liste_validation['longueur_username_inv'] = True
+
+    return liste_validation
+
+
+def validation_password_connexion(liste_champs, liste_validation):
+    if liste_champs['password'] == "":
+        liste_validation['champ_password_vide'] = True
+    else:
+        match_password = re.compile(PATTERN_PASSWORD).match
+        if match_password(liste_champs['password']) is None:
+            liste_validation['champ_password_inv'] = True
+
+        if not (7 < len(liste_champs['password']) < 21):
+            liste_validation['longueur_password_inv'] = True
+
+        if not liste_champs['password_hasher'] == liste_champs['hash']:
+            liste_validation['champ_password_non_trouve'] = True
+
+    return liste_validation
